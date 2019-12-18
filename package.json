@@ -22,6 +22,9 @@
   "homepage": "https://github.com/milleriishaun/selfiecoach#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "nodemon": "^2.0.2"
+    "nedb": "^1.8.0",
+    "node-fetch": "^2.6.0",
+    "nodemon": "^2.0.2",
+    "unsplash-js": "^6.0.0"
   }
 }

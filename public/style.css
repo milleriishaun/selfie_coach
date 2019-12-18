@@ -1,0 +1,14 @@
+* {
+  background: rgb(192, 252, 132);
+}
+
+::placeholder {
+  color: grey;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+#selfieCoach {
+  width: auto;
+  height: 300px;
+}
