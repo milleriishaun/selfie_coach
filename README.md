@@ -2,7 +2,7 @@
 
 # [SelfieCoach](https://github.com/milleriishaun/selfiecoach/ "view on GitHub")
 
-###### *...*✨🤳
+###### ...✨🤳
 
 This project is a minimal implementation of [p5.js](https://p5js.org/) and [NeDB](https://github.com/louischatriot/nedb/).
 
