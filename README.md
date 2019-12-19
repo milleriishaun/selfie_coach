@@ -1,6 +1,6 @@
 # ![cam]
 
-# [selfiecoach](https://github.com/milleriishaun/selfiecoach' view on GitHub')
+# [SelfieCoach](https://github.com/milleriishaun/selfiecoach/ "view on GitHub")
 
 ###### *...*✨🤳
 
