@@ -12,3 +12,18 @@
   width: auto;
   height: 300px;
 }
+
+#coachResized {
+  max-width: 200px;
+  max-height: 400px;
+  color: red;
+}
+
+#cursorImage {
+  opacity: .5;
+}
+
+/* #overlayMove {
+  position: absolute;
+
+} */

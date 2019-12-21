@@ -15,14 +15,20 @@
     <h1>Selfie Coach App</h1>
     <div><a href="/">enter</a> | <a href="/logs">logs</a></div>
     <p>&#9996;&#10024;</p>
-
+    <img
+      src="http://placehold.it/100x100"
+      id="cursorImage"
+      ondragstart="return false;"
+    />
     <p>
       latitude: <span id="latitude"></span>&deg; longitude:
       <span id="longitude"></span>&deg;
     </p>
+
     <img id="selfieCoach" src="https://imgur.com/qLZpUi4.jpg" />
+    <button id="overlayCoach">overlay coach</button>
     <h3 id="altD"></h3>
-    <button id="newCoach">newCoach!</button>
+    <button id="newCoach">new coach</button>
     <br />
     <input id="mood" placeholder="mood" />
     <button id="submit">submit!</button>
