@@ -1,6 +1,4 @@
 function setup() {
-  addListeners();
-
   noCanvas();
   const video = createCapture(VIDEO);
   video.size(300, 260);
@@ -18,20 +16,11 @@ function setup() {
     () => console.log("Geolocation not available");
   }
 
-  // const overlayCoach2 = document.getElementById("overlayCoach");
-  // overlayCoach2.addEventListener("click", event => {
-  //   if (picSized.src === "https://imgur.com/qLZpUi4.jpg") {
-  //   } else {
-  //     const unsplashString = localStorage.getItem("unsplashModels");
-  //     const picArr = JSON.parse(unsplashString);
-  //     let match;
-  //     for (let item in picArr) {
-  //       if (item.urls.regular === selfieOverlayCoach.src) {
-  //         match = item.urls.regular;
-  //       }
-  //     }
-  //   }
-  // });
+  const selfieC = document.getElementById("selfieCoach");
+  const rangeW = document.getElementById("widthRange");
+  const rangeH = document.getElementById("heightRange");
+  rangeW.value = selfieC.width;
+  rangeH.value = selfieC.height;
 }
 
 const callFetch = fetch("/api")
@@ -43,6 +32,72 @@ const callFetch = fetch("/api")
     const unsplashJSON = JSON.stringify(data);
     localStorage.setItem("unsplashModels", unsplashJSON);
   });
+
+const buttonOverlay = document.getElementById("overlayCoach");
+buttonOverlay.addEventListener("click", event => {
+  const selfieC = document.getElementById("selfieCoach");
+  const root = document.createElement("div");
+  const image = document.createElement("img");
+  image.src = selfieC.src;
+  image.id = "cursorImage";
+  image.style.opacity = "0.5";
+  image.style.cursor = "grab";
+  image.width = selfieC.width;
+  image.height = selfieC.height;
+  image.style.ondragstart = "return false;";
+
+  const buttonAutoWidth = document.getElementById("autoWidth");
+  const buttonAutoHeight = document.getElementById("autoHeight");
+  buttonAutoWidth.disabled = !buttonAutoWidth.disabled;
+  buttonAutoHeight.disabled = !buttonAutoHeight.disabled;
+
+  root.append(image);
+  document.body.append(root);
+
+  addListeners();
+  console.log("hello from overlayCoach");
+});
+
+const buttonAutoWidth = document.getElementById("autoWidth");
+buttonAutoWidth.addEventListener("click", async event => {
+  const selfieC = document.getElementById("selfieCoach");
+  const overlayM = document.getElementById("cursorImage");
+  const ratioWH = selfieC.width / selfieC.height;
+  overlayM.width = overlayM.height * ratioWH;
+});
+
+const buttonAutoHeight = document.getElementById("autoHeight");
+buttonAutoHeight.addEventListener("click", async event => {
+  const selfieC = document.getElementById("selfieCoach");
+  const overlayM = document.getElementById("cursorImage");
+  const ratioHW = selfieC.height / selfieC.width;
+  overlayM.height = overlayM.width * ratioHW;
+});
+
+const rangeWidthRangeDiv = document.getElementById("widthRangeDiv");
+rangeWidthRangeDiv.addEventListener("click", async event => {
+  const sliderWidth = document.getElementById("widthRange");
+  const selfieC = document.getElementById("selfieCoach");
+  const overlayM = document.getElementById("cursorImage");
+  const rangeW = document.getElementById("widthRange");
+  rangeW.max = selfieC.width;
+  overlayM.width = sliderWidth.value * 2;
+});
+
+const rangeHeightRangeDiv = document.getElementById("heightRangeDiv");
+rangeHeightRangeDiv.addEventListener("click", async event => {
+  const sliderHeight = document.getElementById("heightRange");
+  const selfieC = document.getElementById("selfieCoach");
+  const overlayM = document.getElementById("cursorImage");
+  const rangeH = document.getElementById("heightRange");
+  rangeH.max = selfieC.height;
+  overlayM.height = sliderHeight.value * 2;
+});
+
+// let sliderWidth = document.getElementById("widthRange");
+// let sliderHeight = document.getElementById("heightRange");
+// let outputWidth = document.getElementById("widthRangeDiv");
+// let outputHeight = document.getElementById("heightRangeDiv");
 
 const buttonCoach = document.getElementById("newCoach");
 buttonCoach.addEventListener("click", event => {
@@ -77,8 +132,10 @@ buttonCoach.addEventListener("click", event => {
 const button = document.getElementById("submit");
 button.addEventListener("click", async event => {
   video.loadPixels();
-  const coachPose = document.getElementById("selfieCoach").src;
-  const mood = document.getElementById("mood").value;
+  const selfieC = document.getElementById("selfieCoach");
+  const coachPose = selfieC.src;
+  const moodV = document.getElementById("mood").value;
+  const mood = moodV.value;
   const image64 = video.canvas.toDataURL();
   const data = { lat, lon, mood, image64, coachPose };
   const options = {
@@ -96,42 +153,37 @@ button.addEventListener("click", async event => {
 const addListeners = () => {
   document
     .getElementById("cursorImage")
-    .addEventListener("mousedown", e => mouseDown(e), false);
-  window.addEventListener("mouseup", e => mouseUp(e), false);
+    .addEventListener("mousedown", mouseDown, false);
+  window.addEventListener("mouseup", mouseUp, false);
   console.log("hi from addListeners");
 };
 
 const mouseUp = e => {
-  window.removeEventListener(
-    "mousemove",
-    (e, gMouseDownOffsetX, gMouseDownOffsetY) =>
-      overlayMove(e, gMouseDownOffsetX, gMouseDownOffsetY),
-    true
-  );
+  const overlayM = document.getElementById("cursorImage");
+  overlayM.style.cursor = "grab";
+  window.removeEventListener("mousemove", overlayMove, true);
   console.log("hi from mouseUp");
 };
 
 const mouseDown = e => {
+  e.preventDefault();
   gMouseDownX = e.clientX;
   gMouseDownY = e.clientY;
-  console.log("x,y: ", gMouseDownX, gMouseDownY);
 
   const overlayM = document.getElementById("cursorImage");
+  overlayM.style.cursor = "grabbing";
 
   //The following block gets the X offset (the difference between where it starts and where it was clicked)
   let leftPart = "";
   if (!overlayM.style.left) {
     leftPart += "0px";
-    console.log("leftPart: ", leftPart);
   } else {
     //In case this was not defined as 0px explicitly.
     leftPart = overlayM.style.left;
-    console.log("leftPartelse: ", leftPart);
   }
   let leftPos = leftPart.indexOf("px");
   let leftNumString = leftPart.slice(0, leftPos); // Get the X value of the object.
   gMouseDownOffsetX = gMouseDownX - parseInt(leftNumString, 10);
-  console.log("gMouseDownOffsetX: ", gMouseDownOffsetX);
 
   //The following block gets the Y offset (the difference between where it starts and where it was clicked)
   let topPart = "";
@@ -139,66 +191,22 @@ const mouseDown = e => {
     topPart += "0px";
   } else {
     //In case this was not defined as 0px explicitly.
-
-    let topPos = topPart.indexOf("px");
-    let topNumString = topPart.slice(0, topPos); // Get the Y value of the object.
-    gMouseDownOffsetY = gMouseDownY - parseInt(topNumString, 10);
-    console.log("gMouseDownOffsetY: ", gMouseDownOffsetY);
+    topPart = overlayM.style.top;
   }
+  let topPos = topPart.indexOf("px");
+  let topNumString = topPart.slice(0, topPos); // Get the Y value of the object.
+  gMouseDownOffsetY = gMouseDownY - parseInt(topNumString, 10);
 
-  window.addEventListener(
-    "mousemove",
-    (e, gMouseDownOffsetX, gMouseDownOffsetY) =>
-      overlayMove(e, gMouseDownOffsetX, gMouseDownOffsetY),
-    true
-  );
+  window.addEventListener("mousemove", overlayMove, true);
   console.log("hi from mouseDown");
 };
 
-const overlayMove = (e, gMouseDownOffsetX = 0, gMouseDownOffsetY = 0) => {
-  gMouseDownX = e.clientX;
-  gMouseDownY = e.clientY;
-  console.log("x,y: ", gMouseDownX, gMouseDownY);
-
+const overlayMove = e => {
   const overlayM = document.getElementById("cursorImage");
-
-  //The following block gets the X offset (the difference between where it starts and where it was clicked)
-  let leftPart = "";
-  if (!overlayM.style.left) {
-    leftPart += "0px";
-    console.log("leftPart: ", leftPart);
-  } else {
-    //In case this was not defined as 0px explicitly.
-    leftPart = overlayM.style.left;
-    console.log("leftPartelse: ", leftPart);
-  }
-  let leftPos = leftPart.indexOf("px");
-  let leftNumString = leftPart.slice(0, leftPos); // Get the X value of the object.
-  gMouseDownOffsetX = gMouseDownX - parseInt(leftNumString, 10);
-  console.log("gMouseDownOffsetX: ", gMouseDownOffsetX);
-
-  //The following block gets the Y offset (the difference between where it starts and where it was clicked)
-  let topPart = "";
-  if (!overlayM.style.top) {
-    topPart += "0px";
-  } else {
-    //In case this was not defined as 0px explicitly.
-
-    let topPos = topPart.indexOf("px");
-    let topNumString = topPart.slice(0, topPos); // Get the Y value of the object.
-    gMouseDownOffsetY = gMouseDownY - parseInt(topNumString, 10);
-    console.log("gMouseDownOffsetY: ", gMouseDownOffsetY);
-  }
-
   overlayM.style.position = "absolute";
-  // overlayM.style.zIndex = "5";
   let topAmount = e.clientY - gMouseDownOffsetY;
-  console.log("e.clientY: ", e.clientY);
-  console.log("gMouseDownOffsetY: ", gMouseDownOffsetY);
-  console.log("topAmount: ", topAmount);
   overlayM.style.top = topAmount + "px";
   let leftAmount = e.clientX - gMouseDownOffsetX;
-  console.log("leftAmount: ", leftAmount);
   overlayM.style.left = leftAmount + "px";
   console.log("hi from overlayMove");
 };

@@ -12,25 +12,44 @@
   </head>
 
   <body>
-    <h1>Selfie Coach App</h1>
+    <h1>Selfie Coach &#9996;&#10024;</h1>
     <div><a href="/">enter</a> | <a href="/logs">logs</a></div>
-    <p>&#9996;&#10024;</p>
-    <img
-      src="http://placehold.it/100x100"
-      id="cursorImage"
-      ondragstart="return false;"
-    />
     <p>
       latitude: <span id="latitude"></span>&deg; longitude:
       <span id="longitude"></span>&deg;
     </p>
 
     <img id="selfieCoach" src="https://imgur.com/qLZpUi4.jpg" />
-    <button id="overlayCoach">overlay coach</button>
+    <br />
+    <button id="overlayCoach">overlay</button>
+    <button id="autoWidth" disabled="true">auto-width</button>
+    <button id="autoHeight" disabled="true">auto-height</button>
+    <div class="slidecontainer" id="widthRangeDiv">
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="sliderWidth"
+        id="widthRange"
+      />
+    </div>
+    <div class="slidecontainer" id="heightRangeDiv">
+      <input
+        type="range"
+        min="1"
+        max="100"
+        value="50"
+        class="sliderHeight"
+        id="heightRange"
+      />
+    </div>
     <h3 id="altD"></h3>
     <button id="newCoach">new coach</button>
     <br />
+    <br />
     <input id="mood" placeholder="mood" />
+    <br />
     <button id="submit">submit!</button>
     <br />
 
