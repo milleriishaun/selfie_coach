@@ -1,7 +1,32 @@
 function setup() {
   noCanvas();
-  const video = createCapture(VIDEO);
-  video.size(300, 260);
+  // const video = createCapture(VIDEO);
+  // video.size(300, 260);
+
+  const camera = createCapture(
+    {
+      audio: false,
+      video: {
+        width: 480,
+        height: 680
+      }
+    },
+    function() {
+      console.log("iPhone/Android front camera ready.");
+    }
+  );
+  camera.parent("vid");
+
+  // // for iPhone/Android
+  // camera.elt.setAttribute("playsinline", "");
+  // camera.hide();
+  // camera.size(640, 480);
+  // const canvas = createCanvas(640, 480);
+  // function draw() {
+  //   image(camera, 0, 0);
+  // }
+  // canvas.parent("vid");
+  // draw();
 
   let lat, lon;
 
@@ -32,6 +57,38 @@ const callFetch = fetch("/api")
     const unsplashJSON = JSON.stringify(data);
     localStorage.setItem("unsplashModels", unsplashJSON);
   });
+
+flipCamera;
+const buttonFlipCamera = document.getElementById("flipCamera");
+buttonFlipCamera.addEventListener("click", event => {
+  video.width;
+});
+
+const buttonReverseCamera = document.getElementById("reverseCamera");
+buttonReverseCamera.addEventListener("click", event => {
+  const video = createCapture(
+    {
+      audio: false,
+      video: {
+        facingMode: {
+          exact: "environment"
+        },
+        width: 640,
+        height: 480
+      }
+    },
+    function() {
+      console.log("reversVideo on iPhone/Android ready.");
+    }
+  );
+  video.elt.setAttribute("playsinline", "");
+  // video.hide();
+  video.size(640, 480);
+  canvas = createCanvas(640, 480);
+  function draw() {
+    image(video, 0, 0);
+  }
+});
 
 const buttonOverlay = document.getElementById("overlayCoach");
 buttonOverlay.addEventListener("click", event => {
@@ -94,11 +151,6 @@ rangeHeightRangeDiv.addEventListener("click", async event => {
   overlayM.height = sliderHeight.value * 2;
 });
 
-// let sliderWidth = document.getElementById("widthRange");
-// let sliderHeight = document.getElementById("heightRange");
-// let outputWidth = document.getElementById("widthRangeDiv");
-// let outputHeight = document.getElementById("heightRangeDiv");
-
 const buttonCoach = document.getElementById("newCoach");
 buttonCoach.addEventListener("click", event => {
   const unsplashString = localStorage.getItem("unsplashModels");
@@ -106,7 +158,7 @@ buttonCoach.addEventListener("click", event => {
   const quickMaths = Math.floor(Math.random(picArr.length) * picArr.length);
   const oneRandomPic = picArr[quickMaths];
   const image = document.getElementById("selfieCoach");
-  const altDescription = document.getElementById("altD");
+  const altDescription = document.getElementById("figCap");
   image.src = oneRandomPic.urls.regular + ".png";
   if (oneRandomPic.alt_description) {
     altDescription.textContent = oneRandomPic.alt_description;

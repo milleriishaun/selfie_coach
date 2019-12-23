@@ -1,5 +1,11 @@
 * {
-  background: rgb(192, 252, 132);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  width: 80px;
 }
 
 ::placeholder {
@@ -9,8 +15,8 @@
 }
 
 #selfieCoach {
-  max-width: 200px;
-  max-height: 400px;
+  max-width: 480px;
+  max-height: 640px;
 }
 
 #resizeClone1 {
@@ -62,4 +68,51 @@
   border-radius: 50%;
   background: #4CAF50;
   cursor: pointer;
+}
+
+.photoBooth {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.optionsList {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 200px;
+}
+
+.topFlex {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.logBar {
+  font-size: 16px;
+  font-family: monospace;
+  font-weight: bold;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.donate {
+  text-align: center;
+  font-family: cursive;
+}
+
+.chill_line {
+  margin: 25px 0;
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
 }
