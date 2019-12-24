@@ -12,10 +12,28 @@
   </head>
 
   <body>
+    <!-- <img id="flash" src="flash.png" /> -->
     <div class="topFlex">
-      <div><h1>Selfie Coach &#9996;&#10024;</h1></div>
-      <div></div>
-      <div class="logBar"><a href="/">home</a> | <a href="/logs">logs</a></div>
+      <div id="topCoach">
+        <button
+          title="&#10024;"
+          onclick="window.location.href = 'http://localhost:3000/';"
+          id="homeLogo"
+        >Selfie Coach &#9996;&#10024;
+        </button></div>
+      <div class="logBar">
+        <button
+          title="go home"
+          onclick="window.location.href = 'http://localhost:3000/';"
+          id="home"
+        >&#8275;Home&#8275;
+        </button> | <button
+          title="view collection"
+          onclick="window.location.href = 'http://localhost:3000/logs';"
+          id="collection"
+        >\Collection/
+        </button>
+      </div>
     </div>
     <div class="chill_line"></div>
     <div class="photoBooth">
@@ -25,52 +43,65 @@
         <figcaption id="figCap">selfie</figcaption>
       </figure>
       <div class="optionsList">
-        <button id="flipCamera">flip</button>
-        <button id="reverseCamera">reverse</button>
-        <br />
-        <input id="mood" placeholder="mood" />
-        <button id="submit">slay! &#9889</button>
-        <br />
-        <br />
-        <button id="overlayCoach">overlay</button>
-        <button id="autoWidth" disabled="true">auto-width</button>
-        <button id="autoHeight" disabled="true">auto-height</button>
+        <div class="snapOptions">
+          <button id="submit1" alt="take snapshot" title="slay snapshot!">&#9889</button>
+          <button id="submit2" alt="snap in 3 seconds" title="snap in 3 seconds!">&#9889</button>
+          <button id="submit3" alt="snap in 10 seconds" title="snap in 10 seconds!">&#9889</button>
+        </div>
+        <input id="mood" title="description" placeholder="&num;mood &num;Look &num;Model" />
         <br />
         <br />
-        <div class="slidecontainer" id="widthRangeDiv">
-          Width: 
-          <input
+        <button id="newCoach" title="load new coach">&#8635</button>
+        <br />
+        <br />
+        <button id="flipCamera" title="rotate 90&deg;">flip</button>
+        <button id="reverseCamera" title="smartphone reverse camera">reverse</button>
+        <br />
+        <br />
+        <button id="overlayCoach" title="render ghost">show ghost</button>
+        <div class="WSliderRow">
+          <div class="slidecontainer" id="widthRangeDiv">
+            <input
+            title="adjust width of ghost"
             type="range"
             min="1"
             max="100"
             value="50"
             class="sliderWidth"
             id="widthRange"
-          />
+            />
+          </div>
+          <button id="autoWidth" title="scale width depending on height" disabled="true">auto</button>
         </div>
-        <div class="slidecontainer" id="heightRangeDiv">
-          Height: 
-          <input
+        <div class="WSliderRow">
+          <div class="slidecontainer" id="heightRangeDiv">
+            <input
+            title="adjust height of ghost"
             type="range"
             min="1"
             max="100"
             value="50"
             class="sliderHeight"
             id="heightRange"
-          />
+            />
+          </div>
+
+          <button id="autoHeight" title="scale height depending on width" disabled="true">auto</button>
+          <br />
         </div>
+        <br />
         <br />
         <div class="donate">
           rescued puppies
-          <img src="visualQRCode.jpg" />
+          <img title="snap to donate" src="visualQRCode.jpg" />
           snap to donate
         </div>
         <br />
-        <p>
-          latitude: <span id="latitude"></span>&deg; longitude:
-          <span id="longitude"></span>&deg;
-        </p>
-        <button id="newCoach">&#8635</button>
+        <button
+          id="nearbyLink"
+          title="landmark scenery"
+        >discover nearby landscapes
+        </button>
       </div>
     </div>
     <script src="client.js"></script>

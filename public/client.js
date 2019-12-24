@@ -1,9 +1,8 @@
+// Initial load, similar to componentDidMount in React
 function setup() {
   noCanvas();
-  // const video = createCapture(VIDEO);
-  // video.size(300, 260);
 
-  const camera = createCapture(
+  var video = createCapture(
     {
       audio: false,
       video: {
@@ -15,38 +14,200 @@ function setup() {
       console.log("iPhone/Android front camera ready.");
     }
   );
-  camera.parent("vid");
+  video.id("cam");
+  video.parent("vid");
 
-  // // for iPhone/Android
-  // camera.elt.setAttribute("playsinline", "");
+  // // Config for iPhone/Android
+  // background();
+  // video.elt.setAttribute("playsinline", "");
   // camera.hide();
-  // camera.size(640, 480);
-  // const canvas = createCanvas(640, 480);
+  // const canvas = createCanvas(480, 640);
   // function draw() {
-  //   image(camera, 0, 0);
+  //   background(255);
+  //   image(video, 0, 0);
+  //   filter(INVERT);
   // }
-  // canvas.parent("vid");
-  // draw();
 
+  const reverse = document.getElementById("reverseCamera");
+  reverse.disabled = "true";
+  const homeL = document.getElementById("homeLogo");
+  homeL.disabled = "true";
+
+  // for geolocation
   let lat, lon;
-
   if ("geolocation" in navigator) {
     navigator.geolocation.getCurrentPosition(position => {
       lat = position.coords.latitude;
       lon = position.coords.longitude;
-      document.getElementById("latitude").textContent = lat;
-      document.getElementById("longitude").textContent = lon;
+      const latlonJson = [
+        {
+          lat: lat,
+          lon: lon
+        }
+      ];
+      localStorage.setItem("latlon", JSON.stringify(latlonJson));
     });
   } else {
     () => console.log("Geolocation not available");
   }
 
-  const selfieC = document.getElementById("selfieCoach");
-  const rangeW = document.getElementById("widthRange");
-  const rangeH = document.getElementById("heightRange");
-  rangeW.value = selfieC.width;
-  rangeH.value = selfieC.height;
+  const button1 = document.getElementById("submit1");
+  button1.addEventListener("click", async event => {
+    const button1 = document.getElementById("submit1");
+    button1.disabled = "true";
+    button1.style.opacity = "0.3";
+    button1.background = "rgba(0, 255, 0, 0.5)";
+    console.log("1", button1.disabled);
+    setTimeout(() => {
+      const button1 = document.getElementById("submit1");
+      button1.disabled = "true";
+      button1.style.opacity = "0.7";
+      button1.textContent = `✨`;
+      console.log("2", button1.disabled);
+
+      // video.size(200, 200);
+      // const drawing = draw();
+      video.loadPixels();
+      const image64 = video.canvas.toDataURL();
+      const selfieC = document.getElementById("selfieCoach");
+      const coachPose = selfieC.src;
+      const moodV = document.getElementById("mood").value;
+      const mood = moodV.value;
+      const data = {
+        lat,
+        lon,
+        mood,
+        image64,
+        coachPose
+      };
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      const response = fetch("/db", options);
+      // const json2 = response.json();
+      // console.log("3", button1.disabled);
+    }, 0);
+    setTimeout(() => {
+      const button1 = document.getElementById("submit1");
+      button1.disabled = !button1.disabled;
+      button1.background = "#d3d3d3";
+      button1.style.opacity = "0.7";
+      button1.textContent = `⚡`;
+      console.log("4", button1.disabled);
+    }, 500);
+  });
+
+  const button2 = document.getElementById("submit2");
+  button2.addEventListener("click", async event => {
+    const button2 = document.getElementById("submit2");
+    button2.disabled = "true";
+    button2.style.opacity = "0.3";
+    button2.background = "rgba(0, 255, 0, 0.5)";
+    console.log("1", button2.disabled);
+    setTimeout(() => {
+      const button2 = document.getElementById("submit2");
+      button2.disabled = "true";
+      button2.style.opacity = "0.7";
+      button2.textContent = `✨`;
+      console.log("2", button2.disabled);
+
+      // video.size(200, 200);
+      // const drawing = draw();
+      video.loadPixels();
+      const image64 = video.canvas.toDataURL();
+      const selfieC = document.getElementById("selfieCoach");
+      const coachPose = selfieC.src;
+      const moodV = document.getElementById("mood").value;
+      const mood = moodV.value;
+      const data = {
+        lat,
+        lon,
+        mood,
+        image64,
+        coachPose
+      };
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      const response = fetch("/db", options);
+      // const json2 = response.json();
+      // console.log("3", button2.disabled);
+    }, 3000);
+    setTimeout(() => {
+      const button2 = document.getElementById("submit2");
+      button2.disabled = !button2.disabled;
+      button2.background = "#d3d3d3";
+      button2.style.opacity = "0.7";
+      button2.textContent = `⚡`;
+      console.log("4", button2.disabled);
+    }, 3500);
+  });
+
+  const button3 = document.getElementById("submit3");
+  button3.addEventListener("click", async event => {
+    const button3 = document.getElementById("submit3");
+    button3.disabled = "true";
+    button3.style.opacity = "0.3";
+    button3.background = "rgba(0, 255, 0, 0.5)";
+    console.log("1", button3.disabled);
+    setTimeout(() => {
+      const button3 = document.getElementById("submit3");
+      button3.disabled = "true";
+      button3.style.opacity = "0.7";
+      button3.textContent = `✨`;
+      console.log("2", button3.disabled);
+
+      // video.size(200, 200);
+      // const drawing = draw();
+      video.loadPixels();
+      const image64 = video.canvas.toDataURL();
+      const selfieC = document.getElementById("selfieCoach");
+      const coachPose = selfieC.src;
+      const moodV = document.getElementById("mood").value;
+      const mood = moodV.value;
+      const data = {
+        lat,
+        lon,
+        mood,
+        image64,
+        coachPose
+      };
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      const response = fetch("/db", options);
+      // const json2 = response.json();
+      // console.log("3", button3.disabled);
+    }, 10000);
+    setTimeout(() => {
+      const button3 = document.getElementById("submit3");
+      button3.disabled = !button3.disabled;
+      button3.background = "#d3d3d3";
+      button3.style.opacity = "0.7";
+      button3.textContent = `⚡`;
+      console.log("4", button3.disabled);
+    }, 10500);
+  });
 }
+
+// for image overlay resizing sliders
+const selfieC = document.getElementById("selfieCoach");
+const rangeW = document.getElementById("widthRange");
+const rangeH = document.getElementById("heightRange");
+rangeW.value = selfieC.width;
+rangeH.value = selfieC.height;
 
 const callFetch = fetch("/api")
   .then(response => {
@@ -58,37 +219,72 @@ const callFetch = fetch("/api")
     localStorage.setItem("unsplashModels", unsplashJSON);
   });
 
-flipCamera;
-const buttonFlipCamera = document.getElementById("flipCamera");
-buttonFlipCamera.addEventListener("click", event => {
-  video.width;
-});
+// const buttonFlipCamera = document.getElementById("flipCamera");
+// buttonFlipCamera.addEventListener("click", event => {
+//   const camera = document.getElementById("cam");
+//   if (camera.width === 480) {
+//     const camInit = createCapture(
+//       {
+//         audio: false,
+//         video: {
+//           width: 640,
+//           height: 480
+//         }
+//       },
+//       function() {
+//         console.log("iPhone/Android front camInit ready.");
+//       }
+//     );
+//     camera.remove();
+//     camInit.id("cam");
+//     camInit.parent("vid");
+//   }
+// });
 
-const buttonReverseCamera = document.getElementById("reverseCamera");
-buttonReverseCamera.addEventListener("click", event => {
-  const video = createCapture(
-    {
-      audio: false,
-      video: {
-        facingMode: {
-          exact: "environment"
-        },
-        width: 640,
-        height: 480
-      }
-    },
-    function() {
-      console.log("reversVideo on iPhone/Android ready.");
-    }
-  );
-  video.elt.setAttribute("playsinline", "");
-  // video.hide();
-  video.size(640, 480);
-  canvas = createCanvas(640, 480);
-  function draw() {
-    image(video, 0, 0);
-  }
-});
+// const buttonReverseCamera = document.getElementById("reverseCamera");
+// buttonReverseCamera.addEventListener("click", event => {
+//   const video = createCapture(
+//     {
+//       audio: false,
+//       video: {
+//         facingMode: {
+//           exact: "environment"
+//         },
+//         width: 640,
+//         height: 480
+//       }
+//     },
+//     function() {
+//       console.log("reversVideo on iPhone/Android ready.");
+//     }
+//   );
+//   video.elt.setAttribute("playsinline", "");
+//   // video.hide();
+//   video.size(640, 480);
+//   canvas = createCanvas(640, 480);
+//   function draw() {
+//     image(video, 0, 0);
+//   }
+// });
+
+const buttonNearby = document.getElementById("nearbyLink");
+buttonNearby.addEventListener(
+  "click",
+  event => {
+    event.preventDefault();
+    const buttonNearby = document.getElementById("nearbyLink");
+    const latlonString = localStorage.getItem("latlon");
+    const latlonArr = JSON.parse(latlonString);
+    const strLink =
+      "https://www.latlong.net/c/?lat=" +
+      latlonArr[0].lat +
+      "&long=" +
+      latlonArr[0].lon;
+    buttonNearby.setAttribute("href", strLink);
+    parent.open(strLink);
+  },
+  false
+);
 
 const buttonOverlay = document.getElementById("overlayCoach");
 buttonOverlay.addEventListener("click", event => {
@@ -161,8 +357,10 @@ buttonCoach.addEventListener("click", event => {
   const altDescription = document.getElementById("figCap");
   image.src = oneRandomPic.urls.regular + ".png";
   if (oneRandomPic.alt_description) {
+    image.title = oneRandomPic.alt_description;
     altDescription.textContent = oneRandomPic.alt_description;
   } else {
+    image.title = oneRandomPic.alt_description;
     altDescription.textContent = "vogue";
   }
   // root.append(image);
@@ -179,27 +377,6 @@ buttonCoach.addEventListener("click", event => {
   //   root.append(image);
   //   document.body.append(root);
   // }
-});
-
-const button = document.getElementById("submit");
-button.addEventListener("click", async event => {
-  video.loadPixels();
-  const selfieC = document.getElementById("selfieCoach");
-  const coachPose = selfieC.src;
-  const moodV = document.getElementById("mood").value;
-  const mood = moodV.value;
-  const image64 = video.canvas.toDataURL();
-  const data = { lat, lon, mood, image64, coachPose };
-  const options = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(data)
-  };
-  const response = await fetch("/db", options);
-  const json2 = await response.json();
-  console.log("submitButton json2: ", json2);
 });
 
 const addListeners = () => {
