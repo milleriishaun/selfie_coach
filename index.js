@@ -1,8 +1,16 @@
+const dotenvsafe = require("dotenv-safe");
 const express = require("express");
 const dataStore = require("nedb");
 const fetch = require("node-fetch");
 global.fetch = fetch;
 const app = express();
+
+// console.log("Value of unsplash: ", process.env.UNSPLASH);
+// "NODE_ENV=production node index.js" keeps .env safe from production mode
+if (process.env.NODE_ENV !== "production") {
+  dotenvsafe.config();
+}
+// console.log("Now the value of unsplash: ", process.env.UNSPLASH);
 
 app.listen(3000, () => console.log("listening on port 3000"));
 app.use(express.static("public"));
@@ -13,8 +21,7 @@ database.loadDatabase();
 
 app.get("/api", (req, res) => {
   fetch(
-    // `https://api.unsplash.com/collections/155450/photos/?per_page=7&auto=format&w=200&dpi=2&client_id=${process.env.UNSPLASH}`
-    `https://api.unsplash.com/collections/155450/photos/?per_page=7&auto=format&w=200&dpi=2&client_id=65ac45f6f9404d5a86559b81a532d60b52c80e97921dfeaede0bbedddb7bb59e`
+    `https://api.unsplash.com/collections/155450/photos/?per_page=7&auto=format&w=200&dpi=2&client_id=${process.env.UNSPLASH}`
   )
     .then(response => {
       console.log("response ok?: ", response.ok);
