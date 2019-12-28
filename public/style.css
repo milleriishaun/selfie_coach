@@ -11,15 +11,22 @@ body {
 }
 
 button {
+  font-size: 16px;
   width: 200px;
+  background: #d3d3d3;
+  opacity: 0.7;
+  cursor: pointer;
+  border: none;
+  outline: transparent;
+}
+
+button:hover {
+  opacity: 1;
 }
 
 button:disabled {
+  background: #d3d3d3;
   opacity: 0.3;
-}
-
-button[disabled]:hover {
-  background: red;
   cursor: default;
 }
 
@@ -99,7 +106,7 @@ button[disabled]:hover {
 }
 
 .WSliderRow,
-HSliderRow {
+.HSliderRow {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -123,7 +130,6 @@ HSliderRow {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
-  color: black;
 }
 
 .logBar {
@@ -131,6 +137,8 @@ HSliderRow {
   border: transparent;
   background-color: none;
 }
+
+
 
 #topCoach {
   padding-top: 20px;
@@ -174,37 +182,17 @@ HSliderRow {
   margin-right: 20px;
 }
 
+
 #submit1,
 #submit2,
 #submit3 {
   border-radius: 50%;
   width: 50px;
   height: 50px;
-  border: none;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
   margin-left: 5px;
   margin-right: 5px;
-  cursor: pointer;
   font-size: 20px;
   margin-bottom: 10px;
-}
-
-#submit1:hover,
-#submit2:hover,
-#submit3:hover {
-  border-radius: 50%;
-  border: transparent;
-  opacity: 1;
-}
-
-#flash {
-  /* position: fixed;
-  z-index: 10;
-  width: 1000px;
-  height: 1000px;
-  overflow: hidden; */
 }
 
 ::placeholder {
@@ -221,7 +209,6 @@ HSliderRow {
 #resizeClone1 {
   max-width: 100px;
   max-height: 200px;
-  color: red;
 }
 
 #figCap {
@@ -234,78 +221,46 @@ HSliderRow {
   margin-left: 10px;
   margin-top: 0px;
   padding-bottom: 5px;
-}
-
-#autoWidth:hover,
-#autoHeight:hover {
-  cursor: pointer;
+  font-size: 14px;
 }
 
 #autoWidth[disabled]:hover,
-#autoHeigh[disabled]t:hover {
+#autoHeight[disabled]:hover {
   cursor: default;
+  background: rgba(255, 0, 0, 0.5)
 }
 
 #nearbyLink {
   width: 100px;
   height: 100px;
-  border: transparent;
-  border: none;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
   word-wrap: break-word;
   text-align: center;
   border-radius: 50%;
-  cursor: hand;
 }
 
 #mood {
   width: 100%;
 }
 
-#newCoach {
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-}
-
-#flipCamera {
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-}
-
-#reverseCamera {
-  font-size: 16px;
-  border: none;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-}
-
-#overlayCoach {
-  cursor: pointer;
-  font-size: 16px;
-  border: none;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
+#reverseCamera[disabled]:hover {
+  background: rgba(255, 0, 0, 0.5);
 }
 
 #nearbyLink {
-  cursor: pointer;
   background-color: rgba(64, 161, 64, 0.5);
-  outline: transparent;
-  font-size: 16px;
 }
 
 #nearbyLink:hover {
-  /* background-color: rgba(64, 161, 64, 0.75) */
+  /* background-color: rgba(64, 161, 64, 0.75); */
   background-color: #4CAF50;
 }
+
+/* #flash {
+  position: fixed;
+  z-index: 10;
+  width: 1000px;
+  height: 1000px;
+  overflow: hidden;
+} */
