@@ -72,7 +72,7 @@ function setup() {
       const selfieC = document.getElementById("selfieCoach");
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
-      const mood = moodV.value;
+      const mood = moodV;
       const data = {
         lat,
         lon,
@@ -122,7 +122,7 @@ function setup() {
       const selfieC = document.getElementById("selfieCoach");
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
-      const mood = moodV.value;
+      const mood = moodV;
       const data = {
         lat,
         lon,
@@ -172,7 +172,7 @@ function setup() {
       const selfieC = document.getElementById("selfieCoach");
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
-      const mood = moodV.value;
+      const mood = moodV;
       const data = {
         lat,
         lon,

@@ -48,7 +48,9 @@
           <button id="submit2" alt="snap in 3 seconds" title="snap in 3 seconds!">&#9889</button>
           <button id="submit3" alt="snap in 10 seconds" title="snap in 10 seconds!">&#9889</button>
         </div>
-        <input id="mood" title="description" placeholder="&num;mood &num;Look &num;Model" />
+        <label>enter mood
+          <input id="mood" placeholder="&num;mood &num;Look &num;Model" />
+        </label>
         <br />
         <br />
         <button id="newCoach" title="load new coach">&#8635</button>
@@ -58,32 +60,34 @@
         <button id="reverseCamera" title="smartphone reverse camera">reverse</button>
         <br />
         <br />
-        <button id="overlayCoach" title="render ghost">show ghost</button>
+        <button id="overlayCoach" title="render ghost with adjustable width and height">show ghost</button>
         <div class="WSliderRow">
           <div class="slidecontainer" id="widthRangeDiv">
-            <input
-            title="adjust width of ghost"
-            type="range"
-            min="1"
-            max="100"
-            value="50"
-            class="sliderWidth"
-            id="widthRange"
-            />
+            <label>width
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="sliderWidth"
+                id="widthRange"
+              />
+            </label>
           </div>
           <button id="autoWidth" title="scale width depending on height" disabled="true">auto</button>
         </div>
         <div class="WSliderRow">
           <div class="slidecontainer" id="heightRangeDiv">
-            <input
-            title="adjust height of ghost"
-            type="range"
-            min="1"
-            max="100"
-            value="50"
-            class="sliderHeight"
-            id="heightRange"
-            />
+            <label>height
+              <input
+                type="range"
+                min="1"
+                max="100"
+                value="50"
+                class="sliderHeight"
+                id="heightRange"
+              />
+            </label>
           </div>
 
           <button id="autoHeight" title="scale height depending on width" disabled="true">auto</button>

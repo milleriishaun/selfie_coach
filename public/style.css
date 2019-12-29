@@ -222,6 +222,7 @@ button:disabled {
   margin-top: 0px;
   padding-bottom: 5px;
   font-size: 14px;
+  color: midnightblue;
 }
 
 #autoWidth[disabled]:hover,
@@ -242,6 +243,10 @@ button:disabled {
 
 #mood {
   width: 100%;
+}
+
+#reverseCamera {
+  color: midnightblue;
 }
 
 #reverseCamera[disabled]:hover {
