@@ -287,6 +287,12 @@ buttonOverlay.addEventListener("click", event => {
   const selfieC = document.getElementById("selfieCoach");
   const root = document.createElement("div");
   const image = document.createElement("img");
+
+  // Remove old image ghost
+  if (document.getElementById("cursorImage")) {
+    const elem = document.getElementById("cursorImage");
+    elem.parentNode.removeChild(elem);
+  }
   image.src = selfieC.src;
   image.id = "cursorImage";
   image.style.opacity = "0.5";
