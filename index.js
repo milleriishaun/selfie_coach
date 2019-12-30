@@ -5,12 +5,10 @@ const fetch = require("node-fetch");
 global.fetch = fetch;
 const app = express();
 
-// console.log("Value of unsplash: ", process.env.UNSPLASH);
 // "NODE_ENV=production node index.js" keeps .env safe from production mode
 if (process.env.NODE_ENV !== "production") {
   dotenvsafe.config();
 }
-// console.log("Now the value of unsplash: ", process.env.UNSPLASH);
 
 app.listen(3000, () => console.log("listening on port 3000"));
 app.use(express.static("public"));
@@ -30,7 +28,7 @@ app.get("/api", (req, res) => {
     .then(data => {
       res.send(data);
     })
-    .catch(e => console.log("could not fetch from API, err: ", e));
+    .catch(e => console.log("Could not fetch from API, err: ", e));
 });
 
 app.get("/db", (req, res) => {
@@ -48,6 +46,5 @@ app.post("/db", (request, response) => {
   const timestamp = Date.now();
   serverData.timestamp = timestamp;
   database.insert(serverData);
-  console.log("DB received: ", serverData);
   response.json(serverData);
 });
