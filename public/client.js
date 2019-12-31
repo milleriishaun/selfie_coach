@@ -184,6 +184,48 @@ function setup() {
       button3.textContent = `⚡`;
     }, 10500);
   });
+
+  getData();
+
+  async function getData() {
+    const response = await fetch("/db");
+    const data2 = await response.json();
+
+    for (item of data2) {
+      const root = document.createElement("div");
+      const card = document.createElement("div");
+      const mood = document.createElement("div");
+      const image = document.createElement("img");
+      const selfieC = document.createElement("img");
+      const date = document.createElement("div");
+      const geo = document.createElement("div");
+
+      card.style.backgroundColor = "#d3d3d3";
+      card.style.borderRadius = "15px";
+      card.style.padding = "10px";
+      card.style.margin = "10px";
+      card.style.width = "800px";
+      mood.textContent = `${item.mood}` || "mood";
+      mood.style.textAlign = "center";
+      mood.style.fontSize = "18px";
+      mood.style.fontWeight = "bold";
+      mood.style.padding = "10px";
+      mood.style.textShadow = "-1px -1px 0px #00e6e6, 1px 1px 0px #E14E65";
+      geo.textContent = `${item.lat}°, ${item.lon}°`;
+      const dateString = new Date(item.timestamp).toLocaleString();
+      date.textContent = dateString;
+      image.src = item.image64;
+      image.alt = item.mood || "vogue" + Math.floor(Math.random() * 100 + 1);
+      selfieC.src = item.coachPose;
+      selfieC.alt = Math.floor(Math.random() * 100 + 1);
+      selfieC.id = "resizeClone1";
+      card.append(mood, image, selfieC, date, geo);
+      root.append(card);
+      document.body.append(root);
+    }
+
+    console.log("data2: ", data2);
+  }
 }
 
 // Unsplash model fetch and storage in localStorage
@@ -196,6 +238,11 @@ const callFetch = fetch("/api")
     const unsplashJSON = JSON.stringify(data);
     localStorage.setItem("unsplashModels", unsplashJSON);
   });
+
+const collectionFunction = () => {
+  document.body.scrollTop = 900; // for Safari
+  document.documentElement.scrollTop = 900; // For Chrome, Firefox, IE, and Opera
+};
 
 // New Coach event listener
 const buttonCoach = document.getElementById("newCoach");
@@ -285,14 +332,19 @@ buttonReverseCamera.addEventListener("click", event => {
 const buttonOverlay = document.getElementById("overlayCoach");
 buttonOverlay.addEventListener("click", event => {
   const selfieC = document.getElementById("selfieCoach");
-  const root = document.createElement("div");
   const image = document.createElement("img");
+  const buttonAutoWidth = document.getElementById("autoWidth");
+  const buttonAutoHeight = document.getElementById("autoHeight");
 
-  // Remove old image ghost
+  // Remove old image ghost or enable auto-resize buttons
   if (document.getElementById("cursorImage")) {
     const elem = document.getElementById("cursorImage");
     elem.parentNode.removeChild(elem);
+  } else {
+    buttonAutoWidth.disabled = !buttonAutoWidth.disabled;
+    buttonAutoHeight.disabled = !buttonAutoHeight.disabled;
   }
+
   image.src = selfieC.src;
   image.id = "cursorImage";
   image.style.opacity = "0.5";
@@ -301,13 +353,8 @@ buttonOverlay.addEventListener("click", event => {
   image.height = selfieC.height;
   image.style.ondragstart = "return false;";
 
-  const buttonAutoWidth = document.getElementById("autoWidth");
-  const buttonAutoHeight = document.getElementById("autoHeight");
-  buttonAutoWidth.disabled = !buttonAutoWidth.disabled;
-  buttonAutoHeight.disabled = !buttonAutoHeight.disabled;
-
-  root.append(image);
-  document.body.append(root);
+  const logReelPosition = document.getElementById("logReel");
+  logReelPosition.append(image);
 
   addListeners();
 });

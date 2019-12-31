@@ -12,7 +12,7 @@
   </head>
 
   <body>
-    <!-- <img id="flash" src="flash.png" /> -->
+    <img id="flash" src="flash.png" />
     <div class="topFlex">
       <div id="topCoach">
         <button
@@ -28,8 +28,9 @@
           id="home"
         >&#8275;Home&#8275;
         </button> | <button
+          name="linkToCollection"
           title="view collection"
-          onclick="window.location.href = 'http://localhost:3000/logs';"
+          onclick="collectionFunction()"
           id="collection"
         >\Collection/
         </button>
@@ -38,6 +39,7 @@
     <div class="chill_line"></div>
     <div class="photoBooth">
       <div id="vid"></div>
+      <div id="logReel"></div>
       <figure>
         <img id="selfieCoach" src="https://imgur.com/qLZpUi4.jpg" alt="Vogue" style="width:100%">
         <figcaption id="figCap">selfie</figcaption>

@@ -162,6 +162,7 @@ button:disabled {
 }
 
 #home {
+  font-weight: bold;
   width: 100px;
   height: 100px;
   cursor: pointer;
@@ -172,6 +173,9 @@ button:disabled {
 }
 
 #collection {
+  text-shadow: -1px -1px 0px #00e6e6,
+    1px 1px 0px #E14E65;
+  font-weight: bold;
   width: 100px;
   height: 100px;
   cursor: pointer;
