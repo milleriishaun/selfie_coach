@@ -46,13 +46,13 @@ app.get("/api", (req, res) => {
 });
 
 // Node/Express we'd like it to serve static assets in production
-if (process.env.NODE_ENV === "production") {
-  // Handle React routing, return all requests to React app
-  app.get("*", (req, res) => {
-    // Send any other requests to the index.html page
-    console.log(`hit Herokuproxy(${PORT}) or express proxy(port3001)`);
-    res.sendFile(path.join(__dirname + "/public/index.html"));
-  });
-}
+// if (process.env.NODE_ENV === "production") {
+//   // Handle React routing, return all requests to React app
+//   app.get("*", (req, res) => {
+//     // Send any other requests to the index.html page
+//     console.log(`hit Herokuproxy(${PORT}) or express proxy(port3001)`);
+//     res.sendFile(path.join(__dirname + "/public/index.html"));
+//   });
+// }
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
