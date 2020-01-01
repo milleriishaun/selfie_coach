@@ -33,7 +33,7 @@ app.disable("x-powered-by");
 
 app.get("/api", (req, res) => {
   fetch(
-    `https://api.unsplash.com/collections/155450/photos/?per_page=7&auto=format&w=200&dpi=2&client_id=${process.env.UNSPLASH}`
+    `https://api.unsplash.com/collections/155450/photos/?per_page=569&auto=format&w=200&dpi=2&client_id=${process.env.UNSPLASH}`
   )
     .then(response => {
       console.log("response ok?: ", response.ok);
@@ -46,13 +46,13 @@ app.get("/api", (req, res) => {
 });
 
 // Node/Express we'd like it to serve static assets in production
-// if (process.env.NODE_ENV === "production") {
-//   // Handle React routing, return all requests to React app
-//   app.get("*", (req, res) => {
-//     // Send any other requests to the index.html page
-//     console.log(`hit Herokuproxy(${PORT}) or express proxy(port3001)`);
-//     res.sendFile(path.join(__dirname + "/public/index.html"));
-//   });
-// }
+if (process.env.NODE_ENV === "production") {
+  // Handle React routing, return all requests to React app
+  app.get("*", (req, res) => {
+    // Send any other requests to the index.html page
+    console.log(`hit Herokuproxy(${PORT}) or express proxy(port3001)`);
+    res.sendFile(path.join(__dirname + "/public/index.html"));
+  });
+}
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
