@@ -1,7 +1,9 @@
 const dotenvsafe = require("dotenv-safe");
 const express = require("express");
 const connectDB = require("./DB/Connection");
-// const dataStore = require("nedb");
+const compression = require("compression");
+const morgan = require("morgan");
+const path = require("path");
 const fetch = require("node-fetch");
 global.fetch = fetch;
 const app = express();
@@ -13,12 +15,21 @@ if (process.env.NODE_ENV !== "production") {
   dotenvsafe.config();
 }
 
-app.listen(3000, () => console.log("listening on port 3000"));
+const normalizePort = port => parseInt(port, 10);
+const PORT = normalizePort(process.env.PORT || 3001);
 
-// Middleware
+// .use for Middleware
 app.use(express.static("public"));
 app.use(express.json({ limit: "1mb", extended: "false" }));
+
+// Route to DB
 app.use("/", require("./Api/User"));
+
+// Build/Deploy helpers
+app.use(compression());
+app.use(morgan("common"));
+
+app.disable("x-powered-by");
 
 app.get("/api", (req, res) => {
   fetch(
@@ -34,30 +45,14 @@ app.get("/api", (req, res) => {
     .catch(e => console.log("Could not fetch from API, err: ", e));
 });
 
-// app.get("/db", (req, res) => {
-//   database.find({}, (err, data) => {
-//     if (err) {
-//       res.end();
-//       return;
-//     }
-//     res.json(data);
-//   });
-// });
+// Node/Express we'd like it to serve static assets in production
+if (process.env.NODE_ENV === "production") {
+  // Handle React routing, return all requests to React app
+  app.get("*", (req, res) => {
+    // Send any other requests to the index.html page
+    console.log(`hit Herokuproxy(${PORT}) or express proxy(port3001)`);
+    res.sendFile(path.join(__dirname + "/public/index.html"));
+  });
+}
 
-// app.post("/db", async (request, response) => {
-//   // const serverData = request.body;
-//   const timestamp = Date.now();
-//   // serverData.timestamp = timestamp;
-//   // database.insert(serverData);
-//   const { lat, lon, mood, image64, coachPose } = request.body;
-//   let user = {};
-//   user.lat = lat;
-//   user.lon = lon;
-//   user.mood = mood;
-//   user.image64 = image64;
-//   user.coachPose = coachPose;
-//   user.timestamp = timestamp;
-//   let userModel = new user(user);
-//   await userModel.save();
-//   response.json(userModel);
-// });
+app.listen(PORT, () => console.log(`listening on port ${PORT}`));
