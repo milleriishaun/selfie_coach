@@ -15,7 +15,7 @@ Run project from project directory using this script:
 Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 The page will reload if you make edits.<br />
 
-Heroku is used to run SelfieCoach on the world wide web.
+Heroku is used to run [SelfieCoach](https://selfiecoach.herokuapp.com/ "view on Heroku") on the world wide web.
 
 # ![cam]
 
