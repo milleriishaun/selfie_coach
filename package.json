@@ -9,8 +9,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "node index.js",
-    "client": "node start-client.js",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "client": "node start-client.js"
   },
   "repository": {
     "type": "git",
