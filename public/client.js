@@ -68,12 +68,14 @@ function setup() {
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
       const mood = moodV;
+      const timestamp = Date.now();
       const data = {
         lat,
         lon,
         mood,
         image64,
-        coachPose
+        coachPose,
+        timestamp
       };
       const options = {
         method: "POST",
@@ -114,12 +116,14 @@ function setup() {
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
       const mood = moodV;
+      const timestamp = Date.now();
       const data = {
         lat,
         lon,
         mood,
         image64,
-        coachPose
+        coachPose,
+        timestamp
       };
       const options = {
         method: "POST",
@@ -159,12 +163,14 @@ function setup() {
       const coachPose = selfieC.src;
       const moodV = document.getElementById("mood").value;
       const mood = moodV;
+      const timestamp = Date.now();
       const data = {
         lat,
         lon,
         mood,
         image64,
-        coachPose
+        coachPose,
+        timestamp
       };
       const options = {
         method: "POST",
@@ -191,39 +197,68 @@ function setup() {
     const response = await fetch("/db");
     const data2 = await response.json();
 
-    for (item of data2) {
-      const root = document.createElement("div");
-      const card = document.createElement("div");
-      const mood = document.createElement("div");
-      const image = document.createElement("img");
-      const selfieC = document.createElement("img");
-      const date = document.createElement("div");
-      const geo = document.createElement("div");
+    // Grab current location
+    const latlonString = localStorage.getItem("latlon");
+    const latlonArr = JSON.parse(latlonString);
+    const { lat, lon } = latlonArr[0];
 
-      card.style.backgroundColor = "#d3d3d3";
-      card.style.borderRadius = "15px";
-      card.style.padding = "10px";
-      card.style.margin = "10px";
-      card.style.width = "800px";
-      mood.textContent = `${item.mood}` || "mood";
-      mood.style.textAlign = "center";
-      mood.style.fontSize = "18px";
-      mood.style.fontWeight = "bold";
-      mood.style.padding = "10px";
-      mood.style.textShadow = "-1px -1px 0px #00e6e6, 1px 1px 0px #E14E65";
-      geo.textContent = `${item.lat}°, ${item.lon}°`;
-      const dateString = new Date(item.timestamp).toLocaleString();
-      date.textContent = dateString;
-      image.src = item.image64;
-      image.alt = item.mood || "vogue" + Math.floor(Math.random() * 100 + 1);
-      selfieC.src = item.coachPose;
-      selfieC.alt = Math.floor(Math.random() * 100 + 1);
-      selfieC.id = "resizeClone1";
-      card.append(mood, image, selfieC, date, geo);
-      root.append(card);
-      document.body.append(root);
+    // Account for negative coordinates
+    let latHigh;
+    let latLow;
+    if (lat > 0) {
+      latHigh = parseFloat(lat) + 0.0001;
+      latLow = parseFloat(lat) - 0.0001;
+    } else {
+      latHigh = parseFloat(lat) - 0.0001;
+      latLow = parseFloat(lat) + 0.0001;
     }
 
+    if (lon > 0) {
+      lonHigh = parseFloat(lon) - 0.0001;
+      lonLow = parseFloat(lon) + 0.0001;
+    } else {
+      lonHigh = parseFloat(lon) + 0.0001;
+      lonLow = parseFloat(lon) - 0.0001;
+    }
+
+    for (item of data2) {
+      // Only display pics that were taken within ~1 foot from current camera location
+      if (item.lat < latHigh && item.lat > latLow) {
+        if (item.lon < lonHigh && item.lon > lonLow) {
+          const root = document.createElement("div");
+          const card = document.createElement("div");
+          const mood = document.createElement("div");
+          const image = document.createElement("img");
+          const selfieC = document.createElement("img");
+          const date = document.createElement("div");
+          const geo = document.createElement("div");
+
+          card.style.backgroundColor = "#d3d3d3";
+          card.style.borderRadius = "15px";
+          card.style.padding = "10px";
+          card.style.margin = "10px";
+          card.style.width = "800px";
+          mood.textContent = `${item.mood}` || "mood";
+          mood.style.textAlign = "center";
+          mood.style.fontSize = "18px";
+          mood.style.fontWeight = "bold";
+          mood.style.padding = "10px";
+          mood.style.textShadow = "-1px -1px 0px #00e6e6, 1px 1px 0px #E14E65";
+          geo.textContent = `${item.lat}°, ${item.lon}°`;
+          const dateString = new Date(item.timestamp).toLocaleString();
+          date.textContent = dateString;
+          image.src = item.image64;
+          image.alt =
+            item.mood || "vogue" + Math.floor(Math.random() * 100 + 1);
+          selfieC.src = item.coachPose;
+          selfieC.alt = Math.floor(Math.random() * 100 + 1);
+          selfieC.id = "resizeClone1";
+          card.append(mood, image, selfieC, date, geo);
+          root.append(card);
+          document.body.append(root);
+        }
+      }
+    }
     console.log("data2: ", data2);
   }
 }

@@ -4,7 +4,7 @@
 
 ###### ...✨🤳
 
-This project is a minimal implementation of [p5.js](https://p5js.org/) and [NeDB](https://github.com/louischatriot/nedb/).
+This project is a minimal implementation of [p5.js](https://p5js.org/) and [MongoDB](https://www.mongodb.com/).
 
 Run project from project directory using this script:
 
