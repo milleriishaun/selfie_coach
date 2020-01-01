@@ -60,6 +60,8 @@ function setup() {
       button1.disabled = "true";
       button1.style.opacity = "0.7";
       button1.textContent = `✨`;
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "visible";
 
       // Get pixels on camera to canvas
       video.loadPixels();
@@ -94,7 +96,9 @@ function setup() {
       button1.background = "#d3d3d3";
       button1.style.opacity = "0.7";
       button1.textContent = `⚡`;
-    }, 500);
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "hidden";
+    }, 150);
   });
 
   // Three-second flash button
@@ -104,11 +108,19 @@ function setup() {
     button2.style.opacity = "0.3";
     button2.background = "rgba(0, 255, 0, 0.5)";
 
+    // Allow flash precursor by changing icon and pic soon after
+    setTimeout(() => {
+      const button2 = document.getElementById("submit2");
+      button2.textContent = `✌`;
+    }, 2500);
+
     setTimeout(() => {
       const button2 = document.getElementById("submit2");
       button2.disabled = "true";
       button2.style.opacity = "0.7";
       button2.textContent = `✨`;
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "visible";
 
       video.loadPixels();
       const image64 = video.canvas.toDataURL();
@@ -141,7 +153,9 @@ function setup() {
       button2.background = "#d3d3d3";
       button2.style.opacity = "0.7";
       button2.textContent = `⚡`;
-    }, 3500);
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "hidden";
+    }, 3150);
   });
 
   // Ten-second flash button
@@ -153,9 +167,16 @@ function setup() {
 
     setTimeout(() => {
       const button3 = document.getElementById("submit3");
+      button3.textContent = `✌`;
+    }, 9500);
+
+    setTimeout(() => {
+      const button3 = document.getElementById("submit3");
       button3.disabled = "true";
       button3.style.opacity = "0.7";
       button3.textContent = `✨`;
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "visible";
 
       video.loadPixels();
       const image64 = video.canvas.toDataURL();
@@ -188,7 +209,9 @@ function setup() {
       button3.background = "#d3d3d3";
       button3.style.opacity = "0.7";
       button3.textContent = `⚡`;
-    }, 10500);
+      const flash1 = document.getElementById("flash");
+      flash1.style.visibility = "hidden";
+    }, 10150);
   });
 
   getData();
@@ -412,14 +435,23 @@ buttonAutoHeight.addEventListener("click", async event => {
   overlayM.height = overlayM.width * ratioHW;
 });
 
+// slider opacity event listener
+const rangeOpacityRangeDiv = document.getElementById("opacityRangeDiv");
+rangeOpacityRangeDiv.addEventListener("click", async event => {
+  const sliderOpacity = document.getElementById("opacityRange");
+  const overlayM = document.getElementById("cursorImage");
+  const rangeO = document.getElementById("opacityRange");
+  sliderOpacity.max = 100;
+  overlayM.style.opacity = sliderOpacity.value / 100;
+});
+
 // slider width event listener
 const rangeWidthRangeDiv = document.getElementById("widthRangeDiv");
 rangeWidthRangeDiv.addEventListener("click", async event => {
   const sliderWidth = document.getElementById("widthRange");
   const selfieC = document.getElementById("selfieCoach");
   const overlayM = document.getElementById("cursorImage");
-  const rangeW = document.getElementById("widthRange");
-  rangeW.max = selfieC.width;
+  sliderWidth.max = selfieC.width;
   overlayM.width = sliderWidth.value * 2;
 });
 
@@ -429,8 +461,7 @@ rangeHeightRangeDiv.addEventListener("click", async event => {
   const sliderHeight = document.getElementById("heightRange");
   const selfieC = document.getElementById("selfieCoach");
   const overlayM = document.getElementById("cursorImage");
-  const rangeH = document.getElementById("heightRange");
-  rangeH.max = selfieC.height;
+  sliderHeight.max = selfieC.height;
   overlayM.height = sliderHeight.value * 2;
 });
 

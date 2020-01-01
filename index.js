@@ -7,7 +7,6 @@ global.fetch = fetch;
 const app = express();
 
 connectDB();
-// const mongo = `mongodb://Tuser:<password>@cluster0-shard-00-00-adqeq.mongodb.net:27017,cluster0-shard-00-01-adqeq.mongodb.net:27017,cluster0-shard-00-02-adqeq.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority`;
 
 // "NODE_ENV=production node index.js" keeps .env safe from production mode
 if (process.env.NODE_ENV !== "production") {
@@ -15,12 +14,11 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.listen(3000, () => console.log("listening on port 3000"));
+
+// Middleware
 app.use(express.static("public"));
 app.use(express.json({ limit: "1mb", extended: "false" }));
 app.use("/", require("./Api/User"));
-
-// const database = new dataStore("database.db");
-// database.loadDatabase();
 
 app.get("/api", (req, res) => {
   fetch(
