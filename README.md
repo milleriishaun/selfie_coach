@@ -1,8 +1,10 @@
-# ![cam]
+# ![selfie]
 
-# [SelfieCoach](https://github.com/milleriishaun/selfiecoach/ "view on GitHub")
+# [SelfieCoach](https://selfiecoach.herokuapp.com/ "view on Heroku")
 
 ###### ...✨🤳
+
+### SelfieCoach is for social media experts and aspiring models.
 
 This project is a minimal implementation of [p5.js](https://p5js.org/) and [MongoDB](https://www.mongodb.com/).
 
@@ -10,10 +12,12 @@ Run project from project directory using this script:
 
 ### `npm start`
 
-Runs the app on the client server.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 The page will reload if you make edits.<br />
 
-Heroku will be used to run the app in production mode.
+Heroku is used to run SelfieCoach on the world wide web.
 
+# ![cam]
+
+[selfie]: https://imgur.com/YfbRIlx.png
 [cam]: https://imgur.com/nAyKuuw.jpg
