@@ -4,11 +4,11 @@ const route = express.Router();
 
 route.get("/db", async (req, res) => {
   const collection = User.find({}, (err, data) => {
-    if (err) {
-      res.end();
-      return;
+    try {
+      res.json(data);
+    } catch (err) {
+      res.json({ message: err });
     }
-    res.json(data);
   });
 });
 
@@ -22,8 +22,12 @@ route.post("/db", async (request, response) => {
   user.coachPose = coachPose;
   user.timestamp = timestamp;
   let userModel = new User(user);
-  await userModel.save();
-  response.json(userModel);
+  try {
+    const post = await userModel.save();
+    response.json(userModel);
+  } catch (err) {
+    response.json({ message: err });
+  }
 });
 
 module.exports = route;
